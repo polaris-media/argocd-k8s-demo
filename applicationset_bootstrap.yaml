@@ -12,7 +12,7 @@ spec:
 
           - clusters: {} # Read cluster secret from argo to generate som keys, like name=<clusterName>
           - git:
-              repoURL: https://github.com/polaris-media/k8s-gitops-stack.git
+              repoURL: https://github.com/polaris-media/argocd-k8s-demo.git
               revision: HEAD
               directories:
               - path: manifest/bootstrap/{{.name}}/*
@@ -22,7 +22,7 @@ spec:
     spec:
       project: devops
       source:
-        repoURL: https://github.com/polaris-media/k8s-gitops-stack.git
+        repoURL: https://github.com/polaris-media/argocd-k8s-demo.git
         targetRevision: HEAD
         path: '{{.path.path}}'
       destination:

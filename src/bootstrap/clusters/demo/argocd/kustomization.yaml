@@ -9,3 +9,5 @@ resources:
 - cluster-secret.yaml
 - https://raw.githubusercontent.com/argoproj/argo-cd/v3.1.8/manifests/install.yaml
 - bootstrapper.yaml
+
+namespace: argocd
