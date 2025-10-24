@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pkl-k8s-demo
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/polaris-media/pkl-k8s-demo.git
+    targetRevision: HEAD
+    path: .
+    directory:
+      include: "applicationset.yaml"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: pkl-k8s-demo
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: bootstrap
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - matrix:
+        generators:
+
+          - clusters: {} # Read cluster secret from argo to generate som keys, like name=<clusterName>
+          - git:
+              repoURL: https://github.com/polaris-media/k8s-gitops-stack.git
+              revision: HEAD
+              directories:
+              - path: manifest/bootstrap/{{.name}}/*
+  template:
+    metadata:
+      name: '{{.path.basename}}'
+    spec:
+      project: devops
+      source:
+        repoURL: https://github.com/polaris-media/k8s-gitops-stack.git
+        targetRevision: HEAD
+        path: '{{.path.path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{.path.basename}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
