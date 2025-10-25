@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cluster-addons-helm
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: [ "missingkey=error" ]
+  generators:
+    - matrix:
+        generators:
+
+          - clusters: {} # Read cluster secret from argo to generate som keys, like name=<clusterName>
+
+          - git: # Helm config and values per cluster
+              repoURL: "https://github.com/polaris-media/argocd-k8s-demo.git"
+              revision: HEAD
+              files:
+                - path: "src/addons/helm/*/{{.name}}/config.yaml"
+
+  template:
+    metadata:
+      name: 'helm-{{.presentationName}}'
+    spec:
+      project: devops
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{.presentationName}}'
+      sources:
+        - repoURL: '{{.appHelmRepo}}'
+          chart: '{{.appHelmChart}}'
+          targetRevision: '{{.appHelmVersion}}'
+          helm:
+            valueFiles:
+              - "$values/src/addons/helm/{{.presentationName}}/{{.name}}/values.yaml"
+        - repoURL: "https://github.com/polaris-media/argocd-k8s-demo.git"
+          targetRevision: HEAD
+          ref: values
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
