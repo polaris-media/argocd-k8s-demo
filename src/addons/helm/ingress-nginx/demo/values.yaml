@@ -1,5 +1,7 @@
 controller:
 
+  electionID: ingress-nginx-controller-leader
+
   ingressClassResource:
     name: ingress-nginx-demo
     default: false
@@ -8,8 +10,9 @@ controller:
 
   kind: "Deployment"
 
-  hostPort:
-    enabled: true
-    ports:
-      http: 9080 # More obscure ports to avoid conflicts
-      https: 9443 # More obscure ports to avoid conflicts
+  # NodePort configuration
+  service:
+    type: "NodePort"
+    nodePorts:
+      http: "31080"
+      https: "31443"
