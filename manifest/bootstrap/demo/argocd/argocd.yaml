@@ -26700,7 +26700,7 @@ metadata:
   name: argocd-server-ingress
   namespace: argocd
 spec:
-  ingressClassName: ingress-nginx-demo
+  ingressClassName: ingress-nginx-pm
   rules:
   - host: localhost
     http:
