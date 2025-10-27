@@ -1,7 +1,5 @@
 controller:
 
-  electionID: ingress-nginx-controller-leader
-
   ingressClassResource:
     name: ingress-nginx-demo
     default: false
