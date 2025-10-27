@@ -5,8 +5,8 @@ controller:
   ingressClassResource:
     name: ingress-nginx-demo
     default: false
-    controllerValue: "k8s.io/ingress-nginx-pm"
-  ingressClass: ingress-nginx-pm
+    controllerValue: "k8s.io/ingress-nginx-demo"
+  ingressClass: ingress-nginx-demo
 
   kind: "Deployment"
 
