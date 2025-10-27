@@ -41,14 +41,20 @@ Demonstration repository for how we bootstrap a Kubernetes cluster with ArgoCD.
 ### TLDR
 
 Bootstrap cluster with argocd.
-ArgoCD now manages the cluster, addons and apps are installed.
+ArgoCD now manages the cluster, addons and apps through this repoistory.
 
 ### What actually happens
 
-argocd manifest contains an application which reads all appsets (applicationsets) from the root directory of this repoistory
-appsets points to directories in the different directories for the specific cluster
+We use an app of apps pattern.
 
-In src/kustomize/base/pkl-demo we have another application which points to a repository with apps to run in the cluster
+This repository contans a application which is "loaded" into argocd when bootstrapping the cluster.
+This application points back to this repoistory, eg. single source of truth,
+
+ArgoCD now manages the cluster addons and itself.
+
+One of these apps in (src/addons/kustomize/demo/pkl-demo) is another app of apps, however this application points to the repository containing the apps.
+
+ArgoCD no also manages all the application
 
 ## How to test it
 
@@ -76,7 +82,7 @@ Manual steps below, optionally run the ./bootstrap script
 
 4. **Connect to argocd**
 
-    Use the ready made ingress or expose a port for demonstration purposes
+    Use the ready made ingress https://localhost:9443 or do some manual port forwarding
 
     example:
 
@@ -86,4 +92,4 @@ Manual steps below, optionally run the ./bootstrap script
 
 ## Other
 
-An ingress is installed as a "showcase".
+An ingress is installed as a "showcase" for using helm charts

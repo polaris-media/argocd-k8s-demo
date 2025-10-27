@@ -1,0 +1,17 @@
+controller:
+
+  electionID: ingress-nginx-controller-leader
+
+  ingressClassResource:
+    name: ingress-nginx-demo
+    default: false
+    controllerValue: "k8s.io/ingress-nginx-pm"
+  ingressClass: ingress-nginx-pm
+
+  kind: "Deployment"
+
+  hostPort:
+    enabled: true
+    ports:
+      http: 9080 # More obscure ports to avoid conflicts
+      https: 9443 # More obscure ports to avoid conflicts

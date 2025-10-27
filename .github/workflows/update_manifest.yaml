@@ -1,0 +1,46 @@
+name: Uppdate manifest
+on:
+  pull_request:
+    branches:
+      - "*"
+  workflow_dispatch:
+
+permissions:
+    contents: write
+jobs:
+  validate:
+    name: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+      - name: Validate all kustomize files in src
+        run: |
+          chmod +x ./validate_kustomize.sh
+          ./validate_kustomize.sh
+      - name: Validate yaml helm appset files
+        run: |
+          chmod +x ./validate_yaml.sh
+          ./validate_yaml.sh
+  update-manifest:
+    name: update-manifest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+        with:
+          token: '${{ secrets.GITHUB_TOKEN }}'
+          ref: ${{ github.head_ref || github.ref_name }}
+      - name: Validate YAML
+        run:  |
+          # Generate manifest
+          chmod +x ./generate_manifest.sh
+          ./generate_manifest.sh
+          # Add manifest folder to git
+          if [ -n "$(git status --porcelain ./manifest)" ]; then
+            git config user.name "GitHub Actions"
+            git config user.email "github-actions@users.noreply.github.com"
+            git add ./manifest
+            git commit -m "Update manifest"
+            git push
+          fi

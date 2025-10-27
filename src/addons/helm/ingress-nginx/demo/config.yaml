@@ -1,0 +1,4 @@
+presentationName: "ingress-nginx"
+appHelmVersion: "4.12.1"
+appHelmChart: "ingress-nginx"
+appHelmRepo: "https://kubernetes.github.io/ingress-nginx"
