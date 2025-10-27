@@ -9,7 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     argocd.argoproj.io/sync-wave: "99"
 spec:
-  ingressClassName: ingress-nginx-demo
+  ingressClassName: ingress-nginx-pm
   rules:
   - host: "localhost"
     http:

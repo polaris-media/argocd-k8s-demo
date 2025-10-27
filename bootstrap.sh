@@ -14,5 +14,6 @@ echo "Install applications..."
 kubectl apply -f manifest/bootstrap/demo/applications/applications.yaml
 
 # Print admin password
+sleep 5  # Wait for secret to be created
 echo "ArgoCD initial admin password: "
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
