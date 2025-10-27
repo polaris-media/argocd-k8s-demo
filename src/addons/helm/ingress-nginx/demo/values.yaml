@@ -3,10 +3,10 @@ controller:
   electionID: ingress-nginx-controller-leader
 
   ingressClassResource:
-    name: ingress-nginx-demo
+    name: ingress-nginx-pm
     default: false
-    controllerValue: "k8s.io/ingress-nginx-demo"
-  ingressClass: ingress-nginx-demo
+    controllerValue: "k8s.io/ingress-nginx-pm"
+  ingressClass: ingress-nginx-pm
 
   kind: "Deployment"
 
