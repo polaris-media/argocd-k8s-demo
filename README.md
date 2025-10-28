@@ -64,8 +64,6 @@ Manual steps below, optionally run the ./bootstrap script
 
     ```bash
     kubectl apply -f manifest/bootstrap/demo/argocd/argocd.yaml
-
-    kubectl apply -f manifest/bootstrap/demo/applications/applications.yaml
     ```
 
 2. **Bootstrap ArgoCD applications**
@@ -77,12 +75,12 @@ Manual steps below, optionally run the ./bootstrap script
 3. **Get ArgoCD admin pwassword**
 
     ```bash
-    kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+    kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
     ```
 
 4. **Connect to argocd**
 
-    Use the ready made ingress https://localhost:9443 or do some manual port forwarding
+    Use the ready made ingress https://localhost:31443 or do some manual port forwarding
 
     example:
 
