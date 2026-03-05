@@ -63,13 +63,13 @@ Manual steps below, optionally run the ./bootstrap script
 1. **Bootstrap Argo CD**
 
     ```bash
-    kubectl apply -f manifest/bootstrap/demo/argocd/argocd.yaml
+    kubectl apply -f https://raw.githubusercontent.com/polaris-media/argocd-k8s-demo/refs/heads/main/manifest/bootstrap/demo/argocd/argocd.yaml
     ```
 
 2. **Bootstrap ArgoCD applications**
 
     ```bash
-    kubectl apply -f manifest/bootstrap/demo/applications/applications.yaml
+    kubectl apply -f https://raw.githubusercontent.com/polaris-media/argocd-k8s-demo/refs/heads/main/manifest/bootstrap/demo/applications/applications.yaml
     ```
 
 3. **Get ArgoCD admin pwassword**
@@ -91,3 +91,5 @@ Manual steps below, optionally run the ./bootstrap script
 ## Other
 
 An ingress is installed as a "showcase" for using helm charts
+
+
