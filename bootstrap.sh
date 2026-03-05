@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Install argocd from raw manifest
-kubectl apply -f manifest/bootstrap/demo/argocd/argocd.yaml
+kubectl apply -f https://raw.githubusercontent.com/polaris-media/argocd-k8s-demo/refs/heads/main/manifest/bootstrap/demo/argocd/argocd.yaml
 
 # Wait for argocd server to be ready
 echo "Waiting for ArgoCD crds..."
@@ -11,7 +11,7 @@ kubectl wait --for=condition=Established --timeout=180s crd/applications.argopro
 
 # Install applications
 echo "Install applications..."
-kubectl apply -f manifest/bootstrap/demo/applications/applications.yaml
+kubectl apply -f https://raw.githubusercontent.com/polaris-media/argocd-k8s-demo/refs/heads/main/manifest/bootstrap/demo/applications/applications.yaml
 
 # Print admin password
 sleep 5  # Wait for secret to be created
